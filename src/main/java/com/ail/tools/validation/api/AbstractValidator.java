@@ -3,10 +3,10 @@ package com.ail.tools.validation.api;
 import java.util.List;
 
 import com.ail.tools.validation.api.attr.Attribute;
-import com.ail.tools.validation.api.exception.CalculationException;
+import com.ail.tools.validation.api.exception.AttributeCalculationException;
+import com.ail.tools.validation.api.exception.AttributeExtractionException;
+import com.ail.tools.validation.api.exception.AttributeValidationException;
 import com.ail.tools.validation.api.exception.ErrorCode;
-import com.ail.tools.validation.api.exception.ExtractionException;
-import com.ail.tools.validation.api.exception.ValidationException;
 import com.ail.tools.validation.api.exception.ValidatorException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public abstract class AbstractValidator<T, S> {
 
 	protected abstract Pair<T, List<ValidatorException>> validateData(final S data);
 
-	protected <V> V extract(Attribute attribute, Extractor<V> extractor) throws ExtractionException {
+	protected <V> V extract(Attribute attribute, Extractor<V> extractor) throws AttributeExtractionException {
 		V extractedValue = null;
 		try {
 			extractedValue = extractor.extract();
@@ -29,13 +29,13 @@ public abstract class AbstractValidator<T, S> {
 				logger.trace("Extracted {}={}", attribute.getName(), extractedValue);
 			}
 			if (extractedValue == null && attribute.getMandatory() == Boolean.TRUE) {
-				throw new ExtractionException("Mandatory attribute")
+				throw new AttributeExtractionException("Mandatory attribute")
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
 			if (attribute.getMandatory() == Boolean.TRUE) {
-				throw new ExtractionException(e)
+				throw new AttributeExtractionException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_EXTRACTION_ERROR);
 			}
@@ -43,7 +43,7 @@ public abstract class AbstractValidator<T, S> {
 		return extractedValue;
 	}
 
-	protected <V> V calculate(Attribute attribute, Calculator<V> calculator) throws CalculationException {
+	protected <V> V calculate(Attribute attribute, Calculator<V> calculator) throws AttributeCalculationException {
 		V calculatedValue = null;
 		try {
 			calculatedValue = calculator.calculate();
@@ -51,13 +51,13 @@ public abstract class AbstractValidator<T, S> {
 				logger.trace("Calculated {}={}", attribute.getName(), calculatedValue);
 			}
 			if (calculatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
-				throw new CalculationException("Mandatory attribute")
+				throw new AttributeCalculationException("Mandatory attribute")
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
 			if (attribute.getMandatory() == Boolean.TRUE) {
-				throw new CalculationException(e)
+				throw new AttributeCalculationException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_CALCULATION_ERROR);
 			}
@@ -65,7 +65,7 @@ public abstract class AbstractValidator<T, S> {
 		return calculatedValue;
 	}
 
-	protected <E, V> V validate(Attribute attribute, Validator<E, V> validator, E value) throws ValidationException {
+	protected <E, V> V validate(Attribute attribute, Validator<E, V> validator, E value) throws AttributeValidationException {
 		attribute.setValue(value);
 		V validatedValue = null;
 		try {
@@ -74,13 +74,13 @@ public abstract class AbstractValidator<T, S> {
 				logger.trace("Validated {}={}", attribute.getName(), validatedValue);
 			}
 			if (validatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
-				throw new ValidationException("Mandatory attribute")
+				throw new AttributeValidationException("Mandatory attribute")
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
 			if (attribute.getMandatory() == Boolean.TRUE) {
-				throw new ValidationException(e)
+				throw new AttributeValidationException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_VALIDATION_ERROR);
 			}
@@ -88,11 +88,11 @@ public abstract class AbstractValidator<T, S> {
 		return validatedValue;
 	}
 
-	protected <E, V> V validate(Attribute fromAttribute, Extractor<E> extractor, Attribute toAttribute, Validator<E, V> validator) throws ValidationException, ExtractionException {
+	protected <E, V> V validate(Attribute fromAttribute, Extractor<E> extractor, Attribute toAttribute, Validator<E, V> validator) throws AttributeValidationException, AttributeExtractionException {
 		return validate(toAttribute, validator, extract(fromAttribute, extractor));
 	}
 
-	protected <E, V> V validate(Attribute attribute, Extractor<E> extractor, Validator<E, V> validator) throws ValidationException, ExtractionException {
+	protected <E, V> V validate(Attribute attribute, Extractor<E> extractor, Validator<E, V> validator) throws AttributeValidationException, AttributeExtractionException {
 		return validate(attribute, validator, extract(attribute, extractor));
 	}
 
