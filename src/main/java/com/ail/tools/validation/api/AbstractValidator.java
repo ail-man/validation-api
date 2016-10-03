@@ -21,10 +21,10 @@ public abstract class AbstractValidator<T, S> {
 
 	protected abstract Pair<T, List<ValidatorException>> validateData(final S data);
 
-	protected <V> V extract(Attribute attribute, Extractor<V> extractor) throws AttributeExtractionException {
+	protected <V> V extract(Attribute attribute, AttributeExtractor<V> attributeExtractor) throws AttributeExtractionException {
 		V extractedValue = null;
 		try {
-			extractedValue = extractor.extract();
+			extractedValue = attributeExtractor.extract();
 			if (logger != null && attribute.getLoggable() != Boolean.FALSE) {
 				logger.trace("Extracted {}={}", attribute.getName(), extractedValue);
 			}
@@ -43,10 +43,10 @@ public abstract class AbstractValidator<T, S> {
 		return extractedValue;
 	}
 
-	protected <V> V calculate(Attribute attribute, Calculator<V> calculator) throws AttributeCalculationException {
+	protected <V> V calculate(Attribute attribute, AttributeCalculator<V> attributeCalculator) throws AttributeCalculationException {
 		V calculatedValue = null;
 		try {
-			calculatedValue = calculator.calculate();
+			calculatedValue = attributeCalculator.calculate();
 			if (logger != null && attribute.getLoggable() != Boolean.FALSE) {
 				logger.trace("Calculated {}={}", attribute.getName(), calculatedValue);
 			}
@@ -65,11 +65,11 @@ public abstract class AbstractValidator<T, S> {
 		return calculatedValue;
 	}
 
-	protected <E, V> V validate(Attribute attribute, Validator<E, V> validator, E value) throws AttributeValidationException {
+	protected <E, V> V validate(Attribute attribute, AttributeValidator<E, V> attributeValidator, E value) throws AttributeValidationException {
 		attribute.setValue(value);
 		V validatedValue = null;
 		try {
-			validatedValue = validator.validate(value);
+			validatedValue = attributeValidator.validate(value);
 			if (logger != null && attribute.getLoggable() != Boolean.FALSE) {
 				logger.trace("Validated {}={}", attribute.getName(), validatedValue);
 			}
@@ -88,12 +88,12 @@ public abstract class AbstractValidator<T, S> {
 		return validatedValue;
 	}
 
-	protected <E, V> V validate(Attribute fromAttribute, Extractor<E> extractor, Attribute toAttribute, Validator<E, V> validator) throws AttributeValidationException, AttributeExtractionException {
-		return validate(toAttribute, validator, extract(fromAttribute, extractor));
+	protected <E, V> V validate(Attribute fromAttribute, AttributeExtractor<E> attributeExtractor, Attribute toAttribute, AttributeValidator<E, V> attributeValidator) throws AttributeValidationException, AttributeExtractionException {
+		return validate(toAttribute, attributeValidator, extract(fromAttribute, attributeExtractor));
 	}
 
-	protected <E, V> V validate(Attribute attribute, Extractor<E> extractor, Validator<E, V> validator) throws AttributeValidationException, AttributeExtractionException {
-		return validate(attribute, validator, extract(attribute, extractor));
+	protected <E, V> V validate(Attribute attribute, AttributeExtractor<E> attributeExtractor, AttributeValidator<E, V> attributeValidator) throws AttributeValidationException, AttributeExtractionException {
+		return validate(attribute, attributeValidator, extract(attribute, attributeExtractor));
 	}
 
 }

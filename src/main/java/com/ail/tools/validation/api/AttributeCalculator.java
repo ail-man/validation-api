@@ -1,6 +1,6 @@
 package com.ail.tools.validation.api;
 
-public interface Calculator<V> {
+public interface AttributeCalculator<V> {
 
 	V calculate() throws Exception;
 
