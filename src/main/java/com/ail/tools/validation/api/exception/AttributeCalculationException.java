@@ -12,13 +12,13 @@ public class AttributeCalculationException extends ValidatorException {
 		super(message);
 	}
 
+	@Override
 	public AttributeCalculationException withAttribute(Attribute attribute) {
-		this.setAttribute(attribute);
-		return this;
+		return (AttributeCalculationException) super.withAttribute(attribute);
 	}
 
+	@Override
 	public AttributeCalculationException withErrorCode(ErrorCode errorCode) {
-		this.setErrorCode(errorCode);
-		return this;
+		return (AttributeCalculationException) super.withErrorCode(errorCode);
 	}
 }

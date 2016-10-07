@@ -12,13 +12,13 @@ public class AttributeExtractionException extends ValidatorException {
 		super(message);
 	}
 
+	@Override
 	public AttributeExtractionException withAttribute(Attribute attribute) {
-		this.setAttribute(attribute);
-		return this;
+		return (AttributeExtractionException) super.withAttribute(attribute);
 	}
 
+	@Override
 	public AttributeExtractionException withErrorCode(ErrorCode errorCode) {
-		this.setErrorCode(errorCode);
-		return this;
+		return (AttributeExtractionException) super.withErrorCode(errorCode);
 	}
 }

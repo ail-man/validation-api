@@ -8,27 +8,37 @@ public class ValidatorException extends Exception {
 	private Attribute attribute;
 	private ErrorCode errorCode;
 
-	protected ValidatorException(Throwable cause) {
+	public ValidatorException(Throwable cause) {
 		super(cause);
 	}
 
-	protected ValidatorException(String message) {
+	public ValidatorException(String message) {
 		super(message);
+	}
+
+	public ValidatorException withAttribute(Attribute attribute) {
+		this.setAttribute(attribute);
+		return this;
 	}
 
 	public Attribute getAttribute() {
 		return attribute;
 	}
 
-	protected void setAttribute(Attribute attribute) {
+	public void setAttribute(Attribute attribute) {
 		this.attribute = attribute;
+	}
+
+	public ValidatorException withErrorCode(ErrorCode errorCode) {
+		this.setErrorCode(errorCode);
+		return this;
 	}
 
 	public ErrorCode getErrorCode() {
 		return errorCode;
 	}
 
-	protected void setErrorCode(ErrorCode errorCode) {
+	public void setErrorCode(ErrorCode errorCode) {
 		this.errorCode = errorCode;
 	}
 

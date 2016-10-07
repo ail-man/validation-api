@@ -25,7 +25,7 @@ public abstract class AbstractValidator<T, S> {
 		V extractedValue = null;
 		try {
 			extractedValue = attributeExtractor.extract();
-			if (logger != null && attribute.getLoggable() != Boolean.FALSE) {
+			if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
 				logger.trace("Extracted {}={}", attribute.getName(), extractedValue);
 			}
 			if (extractedValue == null && attribute.getMandatory() == Boolean.TRUE) {
@@ -47,7 +47,7 @@ public abstract class AbstractValidator<T, S> {
 		V calculatedValue = null;
 		try {
 			calculatedValue = attributeCalculator.calculate();
-			if (logger != null && attribute.getLoggable() != Boolean.FALSE) {
+			if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
 				logger.trace("Calculated {}={}", attribute.getName(), calculatedValue);
 			}
 			if (calculatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
@@ -70,7 +70,7 @@ public abstract class AbstractValidator<T, S> {
 		V validatedValue = null;
 		try {
 			validatedValue = attributeValidator.validate(value);
-			if (logger != null && attribute.getLoggable() != Boolean.FALSE) {
+			if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
 				logger.trace("Validated {}={}", attribute.getName(), validatedValue);
 			}
 			if (validatedValue == null && attribute.getMandatory() == Boolean.TRUE) {

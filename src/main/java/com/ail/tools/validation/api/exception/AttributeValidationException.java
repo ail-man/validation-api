@@ -12,14 +12,14 @@ public class AttributeValidationException extends ValidatorException {
 		super(message);
 	}
 
+	@Override
 	public AttributeValidationException withAttribute(Attribute attribute) {
-		this.setAttribute(attribute);
-		return this;
+		return (AttributeValidationException) super.withAttribute(attribute);
 	}
 
+	@Override
 	public AttributeValidationException withErrorCode(ErrorCode errorCode) {
-		this.setErrorCode(errorCode);
-		return this;
+		return (AttributeValidationException) super.withErrorCode(errorCode);
 	}
 
 }
