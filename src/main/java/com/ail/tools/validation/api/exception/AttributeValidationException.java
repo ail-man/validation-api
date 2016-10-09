@@ -4,6 +4,10 @@ import com.ail.tools.validation.api.attr.Attribute;
 
 public class AttributeValidationException extends ValidatorException {
 
+	public AttributeValidationException() {
+		super();
+	}
+
 	public AttributeValidationException(Throwable cause) {
 		super(cause);
 	}

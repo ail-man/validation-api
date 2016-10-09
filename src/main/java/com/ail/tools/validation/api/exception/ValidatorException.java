@@ -8,6 +8,10 @@ public class ValidatorException extends Exception {
 	private Attribute attribute;
 	private ErrorCode errorCode;
 
+	public ValidatorException() {
+		super();
+	}
+
 	public ValidatorException(Throwable cause) {
 		super(cause);
 	}

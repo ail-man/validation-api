@@ -29,7 +29,7 @@ public abstract class AbstractValidator<T, S> {
 				logger.trace("Extracted {}={}", attribute.getName(), extractedValue);
 			}
 			if (extractedValue == null && attribute.getMandatory() == Boolean.TRUE) {
-				throw new AttributeExtractionException("Mandatory attribute")
+				throw new AttributeExtractionException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
@@ -51,7 +51,7 @@ public abstract class AbstractValidator<T, S> {
 				logger.trace("Calculated {}={}", attribute.getName(), calculatedValue);
 			}
 			if (calculatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
-				throw new AttributeCalculationException("Mandatory attribute")
+				throw new AttributeCalculationException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
@@ -74,7 +74,7 @@ public abstract class AbstractValidator<T, S> {
 				logger.trace("Validated {}={}", attribute.getName(), validatedValue);
 			}
 			if (validatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
-				throw new AttributeValidationException("Mandatory attribute")
+				throw new AttributeValidationException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
