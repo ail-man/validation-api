@@ -25,9 +25,6 @@ public abstract class AbstractValidator<T, S> {
 		V extractedValue = null;
 		try {
 			extractedValue = attributeExtractor.extract();
-			if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
-				logger.trace("Extracted {}={}", attribute.getName(), extractedValue);
-			}
 			if (extractedValue == null && attribute.getMandatory() == Boolean.TRUE) {
 				throw new AttributeExtractionException()
 						.withAttribute(attribute)
@@ -40,6 +37,9 @@ public abstract class AbstractValidator<T, S> {
 						.withErrorCode(ErrorCode.ATTRIBUTE_EXTRACTION_ERROR);
 			}
 		}
+		if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
+			logger.trace("Extracted {}={}", attribute.getName(), extractedValue);
+		}
 		return extractedValue;
 	}
 
@@ -47,9 +47,6 @@ public abstract class AbstractValidator<T, S> {
 		V calculatedValue = null;
 		try {
 			calculatedValue = attributeCalculator.calculate();
-			if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
-				logger.trace("Calculated {}={}", attribute.getName(), calculatedValue);
-			}
 			if (calculatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
 				throw new AttributeCalculationException()
 						.withAttribute(attribute)
@@ -62,6 +59,9 @@ public abstract class AbstractValidator<T, S> {
 						.withErrorCode(ErrorCode.ATTRIBUTE_CALCULATION_ERROR);
 			}
 		}
+		if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
+			logger.trace("Calculated {}={}", attribute.getName(), calculatedValue);
+		}
 		return calculatedValue;
 	}
 
@@ -70,9 +70,6 @@ public abstract class AbstractValidator<T, S> {
 		V validatedValue = null;
 		try {
 			validatedValue = attributeValidator.validate(value);
-			if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
-				logger.trace("Validated {}={}", attribute.getName(), validatedValue);
-			}
 			if (validatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
 				throw new AttributeValidationException()
 						.withAttribute(attribute)
@@ -84,6 +81,9 @@ public abstract class AbstractValidator<T, S> {
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_VALIDATION_ERROR);
 			}
+		}
+		if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
+			logger.trace("Validated {}={}", attribute.getName(), validatedValue);
 		}
 		return validatedValue;
 	}
