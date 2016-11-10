@@ -10,7 +10,7 @@ import com.ail.tools.validation.api.exception.ValidatorException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 
-public class ValidatorExample extends AbstractValidator<ValidatedData, InputData> {
+public class ValidatorExample extends AbstractValidator<InputData, ValidatedData> {
 
 	protected ValidatorExample(Logger logger) {
 		super(logger);

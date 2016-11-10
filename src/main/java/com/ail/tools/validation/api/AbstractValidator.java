@@ -11,7 +11,7 @@ import com.ail.tools.validation.api.exception.ValidatorException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 
-public abstract class AbstractValidator<T, S> {
+public abstract class AbstractValidator<S, T> {
 
 	protected final Logger logger;
 
@@ -25,19 +25,19 @@ public abstract class AbstractValidator<T, S> {
 		V extractedValue = null;
 		try {
 			extractedValue = attributeExtractor.extract();
-			if (extractedValue == null && attribute.getMandatory() == Boolean.TRUE) {
+			if (extractedValue == null && Boolean.TRUE.equals(attribute.getMandatory())) {
 				throw new AttributeExtractionException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (attribute.getMandatory() == Boolean.TRUE) {
+			if (Boolean.TRUE.equals(attribute.getMandatory())) {
 				throw new AttributeExtractionException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_EXTRACTION_ERROR);
 			}
 		}
-		if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
+		if (logger != null && Boolean.TRUE.equals(attribute.getLoggable())) {
 			logger.trace("Extracted {}={}", attribute.getName(), extractedValue);
 		}
 		return extractedValue;
@@ -47,19 +47,19 @@ public abstract class AbstractValidator<T, S> {
 		V calculatedValue = null;
 		try {
 			calculatedValue = attributeCalculator.calculate();
-			if (calculatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
+			if (calculatedValue == null && Boolean.TRUE.equals(attribute.getMandatory())) {
 				throw new AttributeCalculationException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (attribute.getMandatory() == Boolean.TRUE) {
+			if (Boolean.TRUE.equals(attribute.getMandatory())) {
 				throw new AttributeCalculationException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_CALCULATION_ERROR);
 			}
 		}
-		if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
+		if (logger != null && Boolean.TRUE.equals(attribute.getLoggable())) {
 			logger.trace("Calculated {}={}", attribute.getName(), calculatedValue);
 		}
 		return calculatedValue;
@@ -70,19 +70,19 @@ public abstract class AbstractValidator<T, S> {
 		V validatedValue = null;
 		try {
 			validatedValue = attributeValidator.validate(value);
-			if (validatedValue == null && attribute.getMandatory() == Boolean.TRUE) {
+			if (validatedValue == null && Boolean.TRUE.equals(attribute.getMandatory())) {
 				throw new AttributeValidationException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (attribute.getMandatory() == Boolean.TRUE) {
+			if (Boolean.TRUE.equals(attribute.getMandatory())) {
 				throw new AttributeValidationException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_VALIDATION_ERROR);
 			}
 		}
-		if (logger != null && attribute.getLoggable() == Boolean.TRUE) {
+		if (logger != null && Boolean.TRUE.equals(attribute.getLoggable())) {
 			logger.trace("Validated {}={}", attribute.getName(), validatedValue);
 		}
 		return validatedValue;
