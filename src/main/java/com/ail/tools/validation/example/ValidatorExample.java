@@ -1,9 +1,11 @@
-package com.ail.tools.validation.api;
+package com.ail.tools.validation.example;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.ail.tools.validation.api.AbstractValidator;
+import com.ail.tools.validation.api.AttributeValidator;
 import com.ail.tools.validation.api.attr.Attribute;
 import com.ail.tools.validation.api.exception.AttributeValidationException;
 import com.ail.tools.validation.api.exception.ValidatorException;
@@ -12,14 +14,14 @@ import org.slf4j.Logger;
 
 public class ValidatorExample extends AbstractValidator<InputData, ValidatedData> {
 
-	protected ValidatorExample(Logger logger) {
+	public ValidatorExample(Logger logger) {
 		super(logger);
 	}
 
 	@Override
-	protected Pair<ValidatedData, List<ValidatorException>> validateData(InputData inputData) {
-		List<ValidatorException> errors = new ArrayList<>();
+	public Pair<ValidatedData, List<ValidatorException>> validateData(InputData inputData) {
 		ValidatedData validatedData = new ValidatedData();
+		List<ValidatorException> errors = new ArrayList<>();
 
 		final Map<String, String> map = inputData.getMap();
 

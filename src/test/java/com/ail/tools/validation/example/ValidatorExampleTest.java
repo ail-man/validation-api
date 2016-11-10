@@ -1,4 +1,4 @@
-package com.ail.tools.validation.api;
+package com.ail.tools.validation.example;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class ValidatorExampleTest {
 	private static final Logger logger = LoggerFactory.getLogger(ValidatorExampleTest.class);
 
 	@Test
-	public void testValidate() {
+	public void testValidateData() {
 		InputData inputData = new InputData();
 		Map<String, String> map = inputData.getMap();
 		map.put("integer", "1234");

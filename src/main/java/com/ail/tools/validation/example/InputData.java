@@ -1,4 +1,4 @@
-package com.ail.tools.validation.api;
+package com.ail.tools.validation.example;
 
 import java.util.HashMap;
 import java.util.Map;
