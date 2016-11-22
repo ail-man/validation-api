@@ -25,19 +25,19 @@ public abstract class AbstractValidator<S, T> {
 		V extractedValue = null;
 		try {
 			extractedValue = attributeExtractor.extract();
-			if (extractedValue == null && Boolean.TRUE.equals(attribute.getMandatory())) {
+			if (extractedValue == null && attribute.getMandatory()) {
 				throw new AttributeExtractionException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (Boolean.TRUE.equals(attribute.getMandatory())) {
+			if (attribute.getMandatory()) {
 				throw new AttributeExtractionException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_EXTRACTION_ERROR);
 			}
 		}
-		if (logger != null && Boolean.TRUE.equals(attribute.getLoggable())) {
+		if (logger != null && attribute.getLoggable()) {
 			logger.trace("Extracted {}={}", attribute.getName(), extractedValue);
 		}
 		return extractedValue;
@@ -47,19 +47,19 @@ public abstract class AbstractValidator<S, T> {
 		V calculatedValue = null;
 		try {
 			calculatedValue = attributeCalculator.calculate();
-			if (calculatedValue == null && Boolean.TRUE.equals(attribute.getMandatory())) {
+			if (calculatedValue == null && attribute.getMandatory()) {
 				throw new AttributeCalculationException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (Boolean.TRUE.equals(attribute.getMandatory())) {
+			if (attribute.getMandatory()) {
 				throw new AttributeCalculationException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_CALCULATION_ERROR);
 			}
 		}
-		if (logger != null && Boolean.TRUE.equals(attribute.getLoggable())) {
+		if (logger != null && attribute.getLoggable()) {
 			logger.trace("Calculated {}={}", attribute.getName(), calculatedValue);
 		}
 		return calculatedValue;
@@ -70,19 +70,19 @@ public abstract class AbstractValidator<S, T> {
 		V validatedValue = null;
 		try {
 			validatedValue = attributeValidator.validate(value);
-			if (validatedValue == null && Boolean.TRUE.equals(attribute.getMandatory())) {
+			if (validatedValue == null && attribute.getMandatory()) {
 				throw new AttributeValidationException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (Boolean.TRUE.equals(attribute.getMandatory())) {
+			if (attribute.getMandatory()) {
 				throw new AttributeValidationException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_VALIDATION_ERROR);
 			}
 		}
-		if (logger != null && Boolean.TRUE.equals(attribute.getLoggable())) {
+		if (logger != null && attribute.getLoggable()) {
 			logger.trace("Validated {}={}", attribute.getName(), validatedValue);
 		}
 		return validatedValue;

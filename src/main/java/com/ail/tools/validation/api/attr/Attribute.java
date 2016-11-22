@@ -6,30 +6,32 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Attribute {
 
 	private final String name;
-	private Boolean mandatory = Boolean.TRUE;
+	private boolean mandatory;
 	private HolderType holderType;
 	private Object holderId;
 	private Object value;
-	private Boolean loggable = Boolean.TRUE;
+	private boolean loggable;
 
 	public Attribute(String name) {
 		this.name = name;
+		this.mandatory = true;
+		this.loggable = true;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public Boolean getMandatory() {
+	public boolean getMandatory() {
 		return mandatory;
 	}
 
-	public void setMandatory(Boolean mandatory) {
+	public void setMandatory(boolean mandatory) {
 		this.mandatory = mandatory;
 	}
 
 	public Attribute nonMandatory() {
-		this.setMandatory(Boolean.FALSE);
+		this.setMandatory(false);
 		return this;
 	}
 
@@ -59,16 +61,16 @@ public class Attribute {
 		return this;
 	}
 
-	public Boolean getLoggable() {
+	public boolean getLoggable() {
 		return loggable;
 	}
 
-	public void setLoggable(Boolean loggable) {
+	public void setLoggable(boolean loggable) {
 		this.loggable = loggable;
 	}
 
 	public Attribute notLoggable() {
-		this.setLoggable(Boolean.FALSE);
+		this.setLoggable(false);
 		return this;
 	}
 
