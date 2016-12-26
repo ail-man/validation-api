@@ -25,13 +25,13 @@ public abstract class AbstractValidator<S, T> {
 		V extractedValue = null;
 		try {
 			extractedValue = attributeExtractor.extract();
-			if (extractedValue == null && attribute.getMandatory()) {
+			if (extractedValue == null && attribute.isMandatory()) {
 				throw new AttributeExtractionException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (attribute.getMandatory()) {
+			if (attribute.isMandatory()) {
 				throw new AttributeExtractionException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_EXTRACTION_ERROR);
@@ -47,13 +47,13 @@ public abstract class AbstractValidator<S, T> {
 		V calculatedValue = null;
 		try {
 			calculatedValue = attributeCalculator.calculate();
-			if (calculatedValue == null && attribute.getMandatory()) {
+			if (calculatedValue == null && attribute.isMandatory()) {
 				throw new AttributeCalculationException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (attribute.getMandatory()) {
+			if (attribute.isMandatory()) {
 				throw new AttributeCalculationException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_CALCULATION_ERROR);
@@ -70,13 +70,13 @@ public abstract class AbstractValidator<S, T> {
 		V validatedValue = null;
 		try {
 			validatedValue = attributeValidator.validate(value);
-			if (validatedValue == null && attribute.getMandatory()) {
+			if (validatedValue == null && attribute.isMandatory()) {
 				throw new AttributeValidationException()
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.EMPTY_MANDATORY_ATTRIBUTE);
 			}
 		} catch (Exception e) {
-			if (attribute.getMandatory()) {
+			if (attribute.isMandatory()) {
 				throw new AttributeValidationException(e)
 						.withAttribute(attribute)
 						.withErrorCode(ErrorCode.ATTRIBUTE_VALIDATION_ERROR);

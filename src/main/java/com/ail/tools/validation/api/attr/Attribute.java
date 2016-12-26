@@ -22,7 +22,7 @@ public class Attribute {
 		return name;
 	}
 
-	public boolean getMandatory() {
+	public boolean isMandatory() {
 		return mandatory;
 	}
 
